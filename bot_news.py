@@ -7,7 +7,7 @@ import time
 
 #RSS
 
-ANOS = range(2010, 2026)
+ANOS = range(2005, 2027)
 
 QUERIES = [
     "raios Brasil",
@@ -15,7 +15,7 @@ QUERIES = [
     "granizo Brasil",
     "enchentes Brasil",
     "inundação Brasil",
-    "deslizamento Brasil",
+    "deslizamento de terra Brasil",
     "movimentos de massa Brasil"
     "alagamentos Brasil",
     "vendaval Brasil",
@@ -87,7 +87,7 @@ for query in QUERIES:
 
 #Relief API com Paginação
 
-url_relief = "https://api.reliefweb.int/v2/reports"
+url_relief = "https://api.reliefweb.int/v2/disasters"
 
 limit = 100
 offset = 0
@@ -98,9 +98,9 @@ while True:
         "appname": "nome_do_projeto",
         "limit": limit,
         "offset": offset,
-        "query[value]": "(flood OR storm)",
-        "filter[field]": "country.name",
-        "filter[value]": "Brazil"
+        "query": "(flood OR storm)",
+        "filter[field]": "country",
+        "filter[value]": "brazil"
     }
 
     response = requests.get(url_relief, params=params)
@@ -149,7 +149,5 @@ noticias_coletadas_df.to_csv("noticias_riscos_climaticos.csv",
                              index = False,
                              encoding = "utf-8-sig")
 
-#API NASA EONET
-
-
 print("Total de Notícias:", len(noticias_coletadas_df))
+
